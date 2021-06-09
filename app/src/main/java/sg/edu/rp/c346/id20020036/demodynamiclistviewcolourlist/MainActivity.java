@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     EditText etElement, etIndex;
-    Button btnAdd;
+    Button btnAdd, btnRemove, btnUpdate;
     ListView lvColour;
     ArrayList<String> alColours;
     ArrayAdapter<String> aaColour;
@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         etElement = findViewById(R.id.editTextColour);
         etIndex = findViewById(R.id.editTextIndex);
         btnAdd = findViewById(R.id.buttonAddItem);
+        btnRemove = findViewById(R.id.buttonRemove);
+        btnUpdate = findViewById(R.id.buttonUpdate);
         lvColour = findViewById(R.id.listViewColour);
 
         alColours = new ArrayList<>();
@@ -46,6 +48,30 @@ public class MainActivity extends AppCompatActivity {
                 aaColour.notifyDataSetChanged();
                 etElement.setText("");
                 etIndex.setText("");
+            }
+        });
+
+        btnRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pos = Integer.parseInt(etIndex.getText().toString());
+                alColours.remove(pos);
+                etElement.setText("");
+                etIndex.setText("");
+                aaColour.notifyDataSetChanged();
+            }
+        });
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String colour = etElement.getText().toString();
+                int pos = Integer.parseInt(etIndex.getText().toString());
+                alColours.set(pos, colour);
+                aaColour.notifyDataSetChanged();
+                etElement.setText("");
+                etIndex.setText("");
+
             }
         });
 
